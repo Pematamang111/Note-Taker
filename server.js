@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 //app and port
 const app = express()
-const port = process.env.port || 3001
+const PORT = process.env.PORT || 3001
 
 //middlewares
 // Middleware for parsing JSON and urlencoded form data
@@ -26,6 +26,6 @@ app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`)
 })
