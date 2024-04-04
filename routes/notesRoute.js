@@ -29,7 +29,10 @@ router.post('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf-8', (err, data) => {
        if(err) throw err;
 
-       const notesArray = JSON.parse(data);
+       let notesArray = JSON.parse(data);
+       if (!Array.isArray(notesArray)) {
+        notesArray = [];
+    }
        notesArray.push(newNote);
        
        const newNoteString = JSON.stringify(newNote);
