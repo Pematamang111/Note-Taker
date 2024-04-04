@@ -1,7 +1,6 @@
 //dependencies
 const express = require('express');
-const path = require('path');
-const routes = require('./routes/index.js');
+const api = require('./routes/index.js');
 //app and port
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -11,10 +10,13 @@ const PORT = process.env.PORT || 3001
 app.use(express.json());
 app.use(express.urlencoded ({ extended: true }));
 
+//middleware for routes
+app.use('/api', api);
+app.use(api);
+
+
 // Middleware to serve up static assets from the public folder
 app.use(express.static('public'));
-//middleware for routes
-app.use(routes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
