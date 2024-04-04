@@ -29,7 +29,7 @@ router.post('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf-8', (err, data) => {
        if(err) throw err;
 
-       const notesArray = JASON.parse(data);
+       const notesArray = JSON.parse(data);
        notesArray.push(newNote);
        
        const newNoteString = JSON.stringify(newNote);
@@ -50,5 +50,18 @@ router.post('/api/notes', (req, res) => {
     res.status(500).json('error in posting note');
 }
 });
+
+//delete the notes
+router.delete('/api/notes/:id', (req, res) => {
+    let data = fs.readFileSync('db/db.json', 'utf-8');
+    const dataJSON = JSON.parse(data);
+    const newNotes = dataJSON.filter((note) => {
+    return note.id !== req.params.id;
+    })
+    
+    fs.writeFileSync('db/db.json', JSON.stringify(newNotes))
+    res.json('deleted');
+})
+
 
 module.exports = router;
